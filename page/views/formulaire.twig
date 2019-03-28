@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="FR">
+<head>
+    <meta charset="UTF-8">
+    <title>INSCRIPTION</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="jquery.validate.js"></script>
+
+</head>
+<style>
+    html, body, h1, form, fieldset, input
+    {
+        margin: 0; padding: 0; border: none;
+    }
+    body {
+        font-family: Helvetica, Arial, sans-serif; font-size: 12px;
+    }
+    #registration {
+
+        color: #fff;
+        background: #2d2d2d;
+        background: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0, rgb(60,60,60)),
+                color-stop(0.74, rgb(43,43,43)),
+                color-stop(1, rgb(60,60,60))
+        );
+        background-image: -moz-linear-gradient(center bottom, rgb(60, 60, 60) 0%, rgb(43, 43, 43) 74%, rgb(60, 60, 60) 100%);
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        width: 430px;
+        /*position: absolute;
+        top: 50%;
+        left: 50%;*/
+        margin: auto;
+        transform-origin: center;
+    }
+
+    .form-control{
+        margin: 5px;
+        padding: 5px;
+        margin-left: -2px;
+    }
+    #btn_register{
+        margin-left: 200px;
+        margin-top: 5px;
+    }
+    #btn_conn{
+        margin-top:5px;
+        margin-left:20px ;
+    }
+    #connexion{
+        margin-left: 20px;
+        margin-top: 5px;
+    }
+</style>
+<body>
+<div id="registration" class="thumbnail justify-content-center">
+    <h2>Creer un Compte</h2>
+
+    <form id="register" method="post" class="form form-responsive">
+        <div class="row">
+            <div class="col-md-12 form-group div_form">
+                <label for="nom"><span class="glyphicon glyphicon-user"></span></label>
+                <input class="text form-control" id="nom" type="text" name="nom" placeholder="entrez votre nom" value=""/>
+                <p class="errormsg"></p>
+            </div>
+            <div class="col-md-12 form-group div_form">
+                <label for="prenom"><span class="glyphicon glyphicon-user"></span></label>
+                <input class="text form-control " id="prenom" type="text" name="prenom" placeholder="entrez votre prenom "/>
+                <p class="errormsg"></p>
+            </div>
+            <div class="col-md-12 form-group div_form">
+                <label for="email"><span class="glyphicon glyphicon-envelope"></span></label>
+                <input class="text form-control" id="email" type="email" name="email" placeholder="entrez votre email" value=""/>
+                <p class="errormsg"></p>
+            </div>
+            <div class="col-md-12 form-group div_form">
+                <label for="password"><span class="glyphicon glyphicon-lock"></span></label>
+                <input class="text form-control" id="password" type="password" name="password" placeholder="entrez votre mot de pass"/></div>
+            <p class="errormsg"></p>
+            <div class="col-md-12 form-group div_form">
+                <label for="date"><span class="glyphicon glyphicon-time"></span> entrez votre date de naissance</label>
+                <input id="date" class="text form-control" name="date" type="date">
+                <p class="errormsg"></p>
+            </div>
+            <div class="col-md-12 form-group div_form">
+                <label for="pseudo"><span class="glyphicon glyphicon-user"></span></label>
+                <input class="text form-control" id="pseudo" name="pseudo" type="text" placeholder="entrez votre pseudo">
+                <p class="errormsg"></p>
+            </div>
+            <button id="btn_conn" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> connexion</button>
+            <button id="btn_register" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span>Register</button>
+        </div>
+    </form>
+
+    <form id="conn" method="post" class="form form responsive hidden">
+        <div class="row">
+            <div class="col-md-12 form-group div_form">
+                <label for="email"><span class="glyphicon glyphicon-envelope"></span></label>
+                <input class="text form-control" id="email_conn" type="email" name="email_conn" placeholder="entrez votre email" value=""/>
+                <p class="errormsg"></p>
+            </div>
+            <div class="col-md-12 form-group div_form">
+                <label for="password"><span class="glyphicon glyphicon-lock"></span></label>
+                <input class="text form-control" id="password_conn" type="password" name="password_conn" placeholder="entrez votre mot de pass"/>
+                <p class="errormsg"></p>
+            </div>
+            <button id="connexion" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-thumbs-up" ></span></button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $(function(){
+
+        $("#btn_conn").on('click',function(){
+            $('#register').toggleClass('hidden');
+            $('#conn').toggleClass('hidden');
+            return false;
+
+        });
+        $("#register").on('submit',function(e){
+            e.preventDefault()
+            jQuery("#register").validate({
+                rules: {
+                    "nom":{
+                        "required": true,
+                        "minlength": 2,
+                        "maxlength": 60000
+                    },
+                    "prenom":{
+                        "required": true,
+                        "minlength": 2,
+                        "maxlength": 60000
+                    },
+                    "email": {
+                        "email": true,
+                        "maxlength": 255
+                    },
+                    "date": {
+                        "required": true
+                    }
+                }
+            });
+             let data= $("#register" ).serialize();
+            $('#register').toggleClass('hidden');
+            $('#conn').toggleClass('hidden');
+            $.ajax({
+                type:'POST',
+                url:'/menbre',
+                data:data,
+                dataType:'json',
+                success:function(e){
+                    if(e!=false){
+
+                        $('#register' ).reset()
+                    }else{
+                        alert('il y a un probleme avec votre inscripton veuillez reessayer')
+                    }
+                },
+                error:function(){
+                    alert('nous avons un probleme avec le traitement des donnees');
+                }
+            });
+            return false;
+        })
+
+        $('#conn' ).on('submit',function(e){
+            e.preventDefault()
+            jQuery("#conn").validate({
+                rules: {
+                    "email_conn": {
+                        "email": true,
+                        "maxlength": 255
+                    }
+                }
+            });
+            let data = $('#conn' ).serialize()
+            $.ajax({
+                type:'POST',
+                url:'/connex',
+                data:data,
+                dataType:'json',
+                success:function(e){
+                    console.log(e);
+                    console.dir(e)
+                    if(e!=false){
+                        $(location ).attr('href','/list');
+                        console.log('succes')
+                    }else{
+                        let test= window.prompt('est vous sur d\'etre enregistrer ? \n oui/non ');
+                        if(test=='oui'){
+                            $('#conn.errormsg' ).html('veuillez entrez vos information de connexion' ).css('color','#E20009');
+                            $('#conn input') .css('box-shadow','inset 3px 3px 3px 3px rgba(255,000,000,0.7)');
+                        }else{
+                            $(location ).attr('href','localhost:8081/');
+                        }
+                    }
+                },
+                error:function(){
+                    alert('nous avons un probleme avec le traitement des donnees');
+                }
+            });
+        });
+
+
+    })
+
+</script>
+</body>
+</html>

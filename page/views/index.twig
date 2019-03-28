@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>fromulaire</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <!--
+    <script src="bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-theme.min.css">
+    -->
+</head>
+<style>
+    body {
+        padding-top: 70px;
+        background-color: #ddddd8;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .thumbnail img {
+        background: #4e4e4e;
+     }
+
+    .list_i {
+        list-style: none;
+        width: auto;
+        height: auto;
+        display: block;
+    }
+    .thumbnail{
+        background-color: honeydew;
+    }
+    .ingredients {
+        list-style: none;
+        padding: 5px;
+        margin: 10px;
+    }
+
+    .prix {
+        background: #20c997;
+        box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+        color: #fff;
+        text-shadow: 2px 2px #333;
+        position: absolute;
+        right: 6px;
+        top: 20px;
+        padding: 5px 10px;
+        font-size: 20px;
+        border-radius: 3px;
+    }
+
+    .prix:before {
+        border: 4px solid transparent;
+        border-bottom: 4px solid #20c997;
+        border-left: 4px solid #20c997;
+        content: "";
+        position: absolute;
+        right: 1px;
+        top: -8px;
+    }
+
+    .info > h4 {
+        color: #050A2E;
+        font-size: 18px;
+    }
+
+    .btn-order {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #0000fa;
+        text-decoration: none;
+        text-shadow: 2px 2px #333;
+    }
+
+    .btn-order:hover, .btn-order:focus {
+        color: #fff;
+        background-color: #0000fa;
+    }
+
+</style>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">Food ECO</a>
+
+            <p class="navbar-brand " style="margin-left: 400px"><span class="glyphicon glyphicon-user"></span></p>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        {% for line in data %}
+        <div class="col-sm-6 col-md-4 main_div">
+            <div class="thumbnail plat">
+                <img src="{{ line.image }}" alt="...">
+
+                <div class="prix">{{ line.prix }}</div>
+                <div class="info">
+                    <h4 class="nom">{{ line.nom }}</h4>
+
+                    <p class="description">{{ line.description }}</p>
+                    <button data-target="#commander" data-toggle="modal" class="btn btn-order"><span class="glyphicon glyphicon-shopping-cart"></span> Commander
+                    </button>
+                    <button class="btn btn-order btn-default toggle" style="background-color:rgba(60,60,230,0.6);"><span
+                                class="glyphicon glyphicon-eyes-open"></span> voir lesingredients
+                    </button>
+                </div>
+            </div>
+            <div class="thumbnail view hidden">
+                <ul class="list_i">
+                    {% for ingre in line.ingredients %}
+                    <li class="ingredients">{{ ingre }}</li>
+                    {% endfor %}
+                </ul>
+                <label>nombres de personne:</label>
+                <button class=" btn btn-order toggle btn-default" style="background-color:#212529;width: 100%;">
+                    commander
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="modal fade" id="commander">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">x</button>
+                <h1 class="modal-title">Commandez et manger sein</h1>
+            </div>
+            <div class="modal-body">
+                <h2>bonne appetit</h2>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success"><span class="glyphicon glyphicon-check"></span>valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $ ( function () {
+            $('.toggle' ).on ( 'click' , function ( e ) {
+                e.preventDefault ();
+                $ ( '.plat' ).toggleClass ( 'hidden' );
+                $ ( '.view' ).toggleClass ( 'hidden' );
+            })
+    } )
+</script>
+
+</body>
+
+</html>
